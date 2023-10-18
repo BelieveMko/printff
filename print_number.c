@@ -2,28 +2,92 @@
 
 /**
  * print_number - Print an integer using _putchar
- * @n: The integer to print
- * @len: Pointer to the length counter
+ * @args: input character
+ * Return: number of characters printed
  */
 
-void print_number(int n, int *len)
+int print_number(va_list args)
 {
-	unsigned int num;
+	int n = va_arg(args, int);
+	int num, a = n % 10, digit, exp = 1;
+	int i = 1;
 
-	if (n < 0)
+	n = n / 10;
+	num = n;
+
+	if (a < 0)
 	{
 		_putchar('-');
-		*len += 1;
-		num = -n;
+		num = -num;
+		n = -n;
+		a = -a;
+		i++;
 	}
-	else
+	if (num > 0)
 	{
+		while (num / 10 != 0)
+		{
+			exp = exp * 10;
+			num = num / 10;
+		}
 		num = n;
+		while (exp > 0)
+		{
+			digit = num / exp;
+			_putchar(digit + '0');
+			num = num - (digit * exp);
+			exp = exp / 10;
+			i++;
+		}
 	}
 
-	if (num / 10)
-		print_number(num / 10, len);
+	_putchar(a + '0');
+	return (i);
+}
 
-	_putchar((num % 10) + '0');
-	*len += 1;
+#include "main.h"
+
+/**
+ * print_decimal - prints decimal
+ * @args: argument to print
+ * Return: num of characters printed
+ */
+
+int print_decimal(va_list args)
+{
+	int n = va_arg(args, int);
+	int num, a = n % 10, digit, exp = 1;
+	int i = 1;
+
+	n = n / 10;
+	num = n;
+
+	if (a < 0)
+	{
+		_putchar('-');
+		num = -num;
+		n = -n;
+		a = -a;
+		i++;
+	}
+	if (num > 0)
+	{
+		while (num / 10 != 0)
+		{
+			exp = exp * 10;
+			num = num / 10;
+		}
+		num = n;
+		while (exp > 0)
+		{
+			digit = num / exp;
+			_putchar(digit + '0');
+			num = num - (digit * exp);
+			exp = exp / 10;
+			i++;
+		}
+	}
+
+	_putchar(a + '0');
+	return (i);
 }
