@@ -11,5 +11,6 @@ int my_puts(char *c);
 int print_int(va_list args);
 int print_number(va_list args);
 int print_decimal(va_list args);
+int print_binary(va_list val);
 
 #endif
